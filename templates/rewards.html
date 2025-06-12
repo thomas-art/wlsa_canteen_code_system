@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Your Points: {{ user.points }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    {% for reward in rewards %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ reward.name }}</h5>
+                <p class="card-text">{{ reward.description }}</p>
+                <p class="card-text">
+                    <small class="text-muted">Cost: {{ reward.points_cost }} points</small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Stock: {{ reward.stock }} remaining</small>
+                </p>
+                {% if user.points >= reward.points_cost and reward.stock > 0 %}
+                    <a href="{{ url_for('redeem_reward', reward_id=reward.id) }}" class="btn btn-primary">Redeem</a>
+                {% else %}
+                    <button class="btn btn-secondary" disabled>
+                        {% if user.points < reward.points_cost %}
+                            Not enough points
+                        {% else %}
+                            Out of stock
+                        {% endif %}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 

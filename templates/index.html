@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Welcome to WLSA Cafeteria System</h2>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <h4>Earn points by visiting the cafeteria during off-peak hours!</h4>
+                    <p class="text-muted">The shorter the queue, the more points you earn!</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">For Students</h5>
+                                <p class="card-text">Register an account and start earning points by checking in at the cafeteria.</p>
+                                <ul class="list-unstyled">
+                                    <li>✓ Earn up to 10 points per check-in</li>
+                                    <li>✓ Redeem points for rewards</li>
+                                    <li>✓ Track your points balance</li>
+                                </ul>
+                                {% if not current_user.is_authenticated %}
+                                    <div class="d-grid gap-2">
+                                        <a href="{{ url_for('register') }}" class="btn btn-primary">Register Now</a>
+                                        <a href="{{ url_for('login') }}" class="btn btn-outline-primary">Login</a>
+                                    </div>
+                                {% else %}
+                                    <div class="d-grid">
+                                        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Points System</h5>
+                                <p class="card-text">Points are awarded based on queue length:</p>
+                                <ul class="list-unstyled">
+                                    <li>✓ Queue < 5: 10 points</li>
+                                    <li>✓ Queue < 10: 5 points</li>
+                                    <li>✓ Queue < 15: 2 points</li>
+                                    <li>✓ Queue ≥ 15: 0 points</li>
+                                </ul>
+                                <p class="card-text"><small class="text-muted">One check-in per day limit applies</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
